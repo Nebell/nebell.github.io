@@ -23,3 +23,16 @@ theme = "casper"
     cover = "cover.jpg"
     author = "Nebell"
     hideHUGOSupport = true
+
+[permalinks]
+    post = "/:year/:month/:title"
+
+[[menu.main]]
+    name = "Github"
+    pre = "<h5>链接🔗</h5>"
+    url = "https://github.com/Nebell"
+    weight = 101
+[[menu.main]]
+    name = "Gitee"
+    url = "https://gitee.com/Nebell"
+    weight = 100

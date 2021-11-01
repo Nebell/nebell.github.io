@@ -1,3 +1,25 @@
-baseURL = 'http://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
+baseURL = 'https://nebell.github.io/'
+languageCode = 'zh-cn'
+hasCJDLanguage = true
+title = "Nebell's BLOG"
+disqusShortname = "NEBELL"
+contentdir = "content"
+layoutdir = "layouts"
+publishdir = "public"
+builddrafts = false
+canonifyurls = true
+enableEmoji = true
+toc = true
+
+paginate = 5
+
+hjsStyle = "default"
+
+theme = "casper"
+
+[params]
+    description = "人生如逆旅，我亦是行人。"
+    logo = "https://avatars.githubusercontent.com/nebell"
+    cover = "cover.jpg"
+    author = "Nebell"
+    hideHUGOSupport = true

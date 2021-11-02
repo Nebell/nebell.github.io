@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    
+        <meta name="twitter:card" content="summary"/>
+    
+
+
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content=""/>
+<meta name="twitter:site" content="@"/>
+
+
+
+  	<meta property="og:title" content=" &middot; Nebell&#39;s BLOG" />
+  	<meta property="og:site_name" content="Nebell&#39;s BLOG" />
+  	<meta property="og:url" content="https://nebell.github.io/posts/git-ssh-key-verify/" />
+
+    
+        
+            <meta property="og:image" content="/cover.jpg"/>
+        
+    
+
+    
+    <meta property="og:description" content="" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="0001-01-01T00:00:00Z" />
+
+    
+    
+
+    <title> &middot; Nebell&#39;s BLOG</title>
+
+    
+    <meta name="description" content="前言  For developers, if you are using a password to authenticate Git operations with GitHub.com today, you must begin using a personal access token over HTTPS (r" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="https://nebell.github.io/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="https://nebell.github.io/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="https://nebell.github.io/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="https://nebell.github.io/css/nav.css" />
+
+    
+
+    
+
+    
+      
+          <link href="https://nebell.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Nebell&#39;s BLOG" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.88.1" />
+
+    <link rel="canonical" href="https://nebell.github.io/posts/git-ssh-key-verify/" />
+
+    
+      
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name":  null ,
+        "logo": "https://nebell.github.io/https://avatars.githubusercontent.com/nebell"
+    },
+    "author": {
+        "@type": "Person",
+        "name":  null ,
+        
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://nebell.github.io/https://avatars.githubusercontent.com/nebell",
+            "width": 250,
+            "height": 250
+        }, 
+        
+        "url":  null ,
+        "sameAs": [
+            
+            
+             
+             
+             
+             
+             
+            
+        ]
+    },
+    "headline": "",
+    "name": "",
+    "wordCount":  490 ,
+    "timeRequired": "PT3M",
+    "inLanguage": {
+      "@type": "Language",
+      "alternateName": "en"
+    },
+    "url": "https://nebell.github.io/posts/git-ssh-key-verify/",
+    "datePublished": "0001-01-01T00:00Z",
+    "dateModified": "0001-01-01T00:00Z",
+    
+    
+    "description": "",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://nebell.github.io/posts/git-ssh-key-verify/"
+    }
+}
+    </script>
+    
+
+
+    
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            <h5>链接🔗</h5>
+            <li class="nav-opened" role="presentation">
+            	<a href="https://github.com/Nebell">Github</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="https://gitee.com/Nebell">Gitee</a>
+            </li>
+        
+        
+    </ul>
+
+    
+    <a class="subscribe-button icon-feed" href="https://nebell.github.io/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+      <a class="blog-logo" href="https://nebell.github.io/"><img src="https://avatars.githubusercontent.com/nebell" alt="Home" /></a>
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post posts">
+
+    <header class="post-header">
+        <h1 class="post-title"></h1>
+        <small></small>
+
+        <section class="post-meta">
+        
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      <h2 id="前言">前言</h2>
+<blockquote>
+<p>For developers, if you are using a password to authenticate Git operations with GitHub.com today, you must begin using <a href="https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token">a personal access token</a> over HTTPS (recommended) or SSH key by August 13, 2021, to avoid  disruption. If you receive a warning that you are using an outdated  third-party integration, you should update your client to the latest  version.</p>
+</blockquote>
+<p>无论是出于 GitHub 的强制要求的应对，还是出于便利的考虑，使用 SSH 密钥验证不失为一个安全又便利的可选项。</p>
+<p>虽然我是过了八月之后 Push 发现不得了才使用 SSH KEY 的😂。</p>
+<h2 id="ssh-key-生成">SSH KEY 生成</h2>
+<h3 id="使用-openssh-配套工具">使用 OpenSSH 配套工具</h3>
+<p>一般是在 Linux 下使用 <code>ssh-keygen</code> 生成密钥。</p>
+<p>当然笔者是在 Windows 下使用这套工具的，如需使用请参考<a href="https://docs.microsoft.com/zh-cn/windows-server/administration/openssh/openssh_install_firstuse#install-openssh-using-windows-settings">【安装 OpenSSH】</a>进行安装；</p>
+<p>而 Linux 下命令大同小异🧐，使用相同命令敲即可（可能需要先安装 OpenSSH 套件）。</p>
+<p>使用 <code>ssh-keygen</code> 生成 RSA 密钥并附带注释</p>
+<p><code>ssh-keygen -t rsa -C example@email.com</code></p>
+<p>输出一般长这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">PS C:\&gt; ssh-keygen -t rsa -C example@email.com
+Generating public/private rsa key pair.
+Enter file <span style="color:#66d9ef">in</span> which to save the key (C:\Users\User/.ssh/id_rsa)<span style="color:#960050;background-color:#1e0010">:</span> 
+Enter passphrase (empty <span style="color:#66d9ef">for</span> no passphrase)<span style="color:#960050;background-color:#1e0010">:</span>
+Enter same passphrase again<span style="color:#960050;background-color:#1e0010">:</span>
+Your identification has been saved <span style="color:#66d9ef">in</span> id_rsa.
+Your public key has been saved <span style="color:#66d9ef">in</span> id_rsa.pub.
+The key fingerprint is<span style="color:#960050;background-color:#1e0010">:</span>
+SHA256<span style="color:#960050;background-color:#1e0010">:</span>nSUAPH6/IivkL2k+c/b8vYsobUPu4qS+Eaij1aWNu8A example@email.com
+The key<span style="color:#960050;background-color:#1e0010">&#39;</span>s randomart image is<span style="color:#960050;background-color:#1e0010">:</span>
++---<span style="color:#66d9ef">[RSA 3072]</span>----+
+|     ....        |
+|      o  .       |
+|     . .  . .    |
+|   .  . .. +     |
+|  . . ..S.o      |
+| o ..*  . .      |
+|o Eo=.o+   .     |
+|.o .O=*.*..o     |
+|.  +B%+O=+o +o   |
++----<span style="color:#66d9ef">[SHA256]</span>-----+
+</code></pre></div><p>查看并复制生成出来的密钥，默认生成的私钥🔑是 <code>id_rsa</code>，公钥🗝是同名且以 <code>.pub</code> 为拓展名的文件。</p>
+<p><strong>默认生成的密钥地址</strong>应该为 <code>C:\Users\用户名\.ssh\id_rsa</code>。</p>
+<p>我这里是使用 <code>cat</code> 进行查看。<code>cat id_rsa</code> 或者使用编辑器打开新生成的公钥，公钥长这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDz+uBFXJ+r/dZ+APS0iQ7/GpWpgrrZhNPw/8YMRBTwC9S13/ibKEzVJiHGFqq3wSkgAIyYQ/Fi56uChJH9DB2rtIXDsTFzQNHHrhZnBD8BHxaMeX2WktMohZYqahn1Tkq40txjJrEc8pYwrm11amYaJoBuK17+BJXxB+j+Ehs2SA56rSBBL08UC38vW+SZm6xrd3vN25PzjXSiqasEf7O1nDeFa/vtVi0aJBj6dJfFFefi/eMdxcuIrRHwbfMyzJYFYDrRL7Z3zF+oBeitK3gYhMcF/P13ibCx1vgq6TnBbZHLLwfTkGKNl5g9dRaYj22yR6vIe1GGPSvP/A+K3/4ofLHRS9JcFBhuHbbU2sVjz691Kon2jdxjaCGIQX43O+1AfHFsLJGfvjXIDbEHKu9Eq8h3x75MqAdRSYpwPIV+1XqepATMf8YUH8AiyWN5QUVgvkCEXEhemp8RkWVaJ1ZuZjwTh9ab7Ahtfj3iW5B0AYwrPyZEKRfXSN8dYsYjAZM= example@email.com
+</code></pre></div><p>那么将公钥复制，进行下一步。</p>
+<h3 id="使用-putty-key-generator">使用 PuTTY Key Generator</h3>
+<p>一般在 Windows 下使用这个 PuTTY 的配套工具生成密钥。</p>
+<p>建议访问 <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY 官网</a>进行下载，以防下载到<strong>带恶意软件捆绑的版本</strong>🤦‍♂️。</p>
+<p><img src="img/git-ssh-key-verify/image-20211102102808934.png" alt="image-20211102102808934"></p>
+<p>下载后打开，使用默认配置开始生成，点击【Generate】：</p>
+<p><img src="img/git-ssh-key-verify/image-20211102102917196.png" alt="image-20211102102917196"></p>
+<p>窗口会提示你在框框内<strong>来回移动</strong>鼠标🖱。</p>
+<p>生成完成后，在菜单栏里选择【Conversions -&gt; Export OpenSSH Key】保存 OpenSSH 格式的私钥🔑。</p>
+<p>注意我们此处用的是 OpenSSH 格式的私钥，因为大多数 Linux 平台下使用 OpenSSH。</p>
+<p>当然如果你想保存 PuTTY 格式的，选择下方的 【Save private key】进行保存就行👌。</p>
+<p>保存为 <code>.ppk</code> 格式，可以用以 PuTTY 的认证或者 Windows 平台下 TortoiseGit 中 GitHub 的私钥认证。</p>
+<p><img src="img/git-ssh-key-verify/image-20211102103138682.png" alt="image-20211102103138682"></p>
+<p>保存或者将公钥部分复制下来备用。</p>
+<p>但其实保存私钥更为重要，因为随时可以通过私钥生成🛠对应的公钥。</p>
+<p><img src="img/git-ssh-key-verify/image-20211102103448558.png" alt="image-20211102103448558"></p>
+<h2 id="github-使用密钥进行认证">GitHub 使用密钥进行认证</h2>
+<h3 id="设置-github-的密钥认证">设置 GitHub 的密钥认证</h3>
+<p>进入 GitHub 官网，从右上角的头像中进入设置⚙页面。</p>
+<p><img src="img/git-ssh-key-verify/gh-profile.png" alt="gh-profile"></p>
+<p>进入【SSH and GPG keys -&gt; New SSH Key】。</p>
+<p><img src="img/git-ssh-key-verify/image-20211102110937387.png" alt="image-20211102110937387"></p>
+<p>进入后，将上文生成的公钥🗝粘贴进去，标题起一个你喜欢的名字（或者我喜欢的也行）。</p>
+<p><img src="img/git-ssh-key-verify/image-20211102111216900.png" alt="image-20211102111216900"></p>
+<p>添加完成后就会如下所示：</p>
+<p><img src="img/git-ssh-key-verify/image-20211102111316504.png" alt="image-20211102111316504"></p>
+<h3 id="本机设置-ssh-指定密钥认证">本机设置 SSH 指定密钥认证</h3>
+<p>好的，终于开始了令人激动的认证👀环节！</p>
+<p>以下假设对应粘贴到 Github 的公钥的私钥文件为 <code>id_rsa</code>。</p>
+<h3 id="验证">验证</h3>
+<p>一般而言，通过 OpenSSH 配套工具 <code>ssh-keygen</code> 生成的都可以直接使用了。</p>
+<p>使用 <code>ssh -T git@github.com</code> 进行检验，返回以下信息说明成功！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">PS C:\&gt; ssh -T git@github.com
+Hi (你的用户名)! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
+</code></pre></div><p>这个时候进行私有仓库的 Push / Clone / Pull 操作试试。</p>
+<h3 id="添加私钥">添加私钥</h3>
+<p>如果是 PuTTY Key Generator 生成的私钥🔑，需要加入到 OpenSSH 中。</p>
+<p>OpenSSH 添加私钥的操作，Linux / Windows 下都是：</p>
+<p><code>ssh-add (私钥文件地址)</code></p>
+<p>至于 Windows 下其他的客户端，请参考<a href="https://blog.csdn.net/u014180504/article/details/91851861">这里</a>进行设置。</p>
+<p>在 Windows 添加时，可能会出现 <code>ssh-agent</code> 服务未启动的问题，那么就将它启动。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># 启动 ssh-agent 服务</span>
+PS C:\windows\system32&gt; Start-Service ssh-agent
+<span style="color:#75715e"># 将 ssh-agent 设置为开机启动（可选）</span>
+PS C:\windows\system32&gt; Set-Service -StartupType Automatic ssh-agent
+<span style="color:#75715e"># 查看服务状态</span>
+PS C:\windows\system32&gt; Get-Service ssh-agent
+</code></pre></div><p>或者参考<a href="https://developer.aliyun.com/article/784983">阿里云的文章</a>通过图形化界面操作</p>
+<blockquote>
+<p>右键“我的电脑”（Windows 10上为“此电脑”），选择“管理”菜单项，打开计算机管理窗口。</p>
+<ol>
+<li>左栏选择服务；</li>
+<li>右栏中找到OpenSSH Authentication Agent服务；</li>
+<li>双击打开设置界面，将启动类型由禁用改为自动；</li>
+<li>点击应用，这时才可以手动启动和停止agent服务；</li>
+<li>点击启动按钮，启动agent服务。</li>
+</ol>
+</blockquote>
+<p>那么重试验证那一步，可以的话那就 OK 了。</p>
+<h3 id="指定私钥认证">指定私钥认证</h3>
+<p>但是我又遇到了一个问题，出现在了我更换了私钥之后，甚至是使用 <code>ssh-add</code> 添加了私钥之后。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+</code></pre></div><p><strong><code>ssh</code> 验证是成功的，而使用 <code>git</code> 拉取或者上传仓库则提示认证失败😅</strong></p>
+<p>那么咱就<strong>指定密钥文件</strong>认证 GitHub，以下是 OpenSSH 的设置，依旧是平台无关（使用 Powershell 的话命令一样的）。</p>
+<p><code>cd ~/.ssh</code> 进入到 OpenSSH 的目录中。</p>
+<p>创建并编辑 <code>config</code> 文件：</p>
+<ul>
+<li>Linux 下可以 <code>vim config</code></li>
+<li>Windows 下可以 <code>notepad config</code></li>
+</ul>
+<p>格式大概长这样，<strong>注意</strong> Host 部分是要填写 <code>github.com</code> 的<strong>而非随便起名的</strong>，笔者有被无良教程坑害到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Host github.com
+    Hostname github.com
+    User git
+    IdentityFile C:\path\to\privateKey
+</code></pre></div><ul>
+<li>Host / Hostname =&gt; github.com</li>
+<li>User =&gt; git 或者你的用户名经测试都可行</li>
+<li>IdentityFile =&gt; 上文生成的 OpenSSH 的密钥地址</li>
+</ul>
+<p>好了👌，再次进行第一步测试，不出意外就 OK 了。</p>
+<h2 id="其他">其他</h2>
+<p>对于 Gitee / GitLab 的密钥设置是大同小异的，而使用 SSH 密钥进行 SSH 连接可以先参考<a href="https://linux.cn/article-13726-1.html">这里</a>，毕竟笔者不一定写😁。</p>
+<hr>
+<p>title: &ldquo;[GitHub] [SSH] 生成 SSH 密钥以进行 GitHub 认证&rdquo;
+date: 2021-11-01T21:58:25+08:00</p>
+<h2 id="draft-true">draft: true</h2>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+
+
+
+
+
+
+
+
+<figure class="author-image">
+    <a class="img" href="https://nebell.github.io/" style="background-image: url(https://avatars.githubusercontent.com/nebell)"><span class="hidden">Nebell's Picture</span></a>
+</figure>
+
+
+<section class="author">
+  <h4><a href="https://nebell.github.io/">Nebell</a></h4>
+  
+  <p>Read <a href="https://nebell.github.io/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+
+    
+<section class="share">
+  <h4>Share this posts</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=&nbsp;-&nbsp;Nebell%27s%20BLOG&amp;url=https%3a%2f%2fnebell.github.io%2fposts%2fgit-ssh-key-verify%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fnebell.github.io%2fposts%2fgit-ssh-key-verify%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fnebell.github.io%2fposts%2fgit-ssh-key-verify%2f&amp;description="
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=https%3a%2f%2fnebell.github.io%2fposts%2fgit-ssh-key-verify%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/nebell.github.io\/posts\/git-ssh-key-verify\/";  
+this.page.identifier = "https:\/\/nebell.github.io\/posts\/git-ssh-key-verify\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://NEBELL.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+
+
+  </footer>
+</article>
+
+</main>
+
+
+  <aside class="read-next">
+  
+  
+</aside>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Nebell&#39;s BLOG</a> </section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="https://nebell.github.io/js/jquery.js"></script>
+    <script type="text/javascript" src="https://nebell.github.io/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://nebell.github.io/js/index.js"></script>
+    
+</body>
+</html>
+

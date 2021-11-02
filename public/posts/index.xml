@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Nebell&#39;s BLOG</title>
-    <link>https://nebell.github.io/</link>
-    <description>Recent content on Nebell&#39;s BLOG</description>
+    <title>Posts on Nebell&#39;s BLOG</title>
+    <link>https://nebell.github.io/posts/</link>
+    <description>Recent content in Posts on Nebell&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://nebell.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language><atom:link href="https://nebell.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
       <link>https://nebell.github.io/posts/git-ssh-key-verify/</link>

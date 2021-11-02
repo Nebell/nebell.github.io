@@ -11,7 +11,6 @@ canonifyurls = true
 enableEmoji = true
 toc = true
 
-paginate = 5
 
 hjsStyle = "default"
 
@@ -23,6 +22,7 @@ theme = "casper"
     cover = "cover.jpg"
     author = "Nebell"
     hideHUGOSupport = true
+    share = false
 
 [permalinks]
     post = "/:year/:month/:title"
@@ -31,8 +31,13 @@ theme = "casper"
     name = "Github"
     pre = "<h5>链接🔗</h5>"
     url = "https://github.com/Nebell"
-    weight = 101
+    weight = 110
 [[menu.main]]
     name = "Gitee"
     url = "https://gitee.com/Nebell"
-    weight = 100
+    weight = 109
+[[menu.main]]
+    name = "文章"
+    url = "/posts/"
+    weight = 108
+

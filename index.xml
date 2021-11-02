@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nebell&#39;s BLOG</title>
+    <link>https://nebell.github.io/</link>
+    <description>Recent content on Nebell&#39;s BLOG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 01 Nov 2021 21:58:25 +0800</lastBuildDate><atom:link href="https://nebell.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 SSH 密钥以对 GitHub 进行认证</title>
+      <link>https://nebell.github.io/posts/git-ssh-key-verify/</link>
+      <pubDate>Mon, 01 Nov 2021 21:58:25 +0800</pubDate>
+      
+      <guid>https://nebell.github.io/posts/git-ssh-key-verify/</guid>
+      <description>前言  For developers, if you are using a password to authenticate Git operations with GitHub.com today, you must begin using a personal access token over HTTPS (recommended) or SSH key by August 13, 2021, to avoid disruption. If you receive a warning that you are using an outdated third-party integration, you should update your client to the latest version.
+ 无论是出于 GitHub 的强制要求的应对，还是出于便利的考虑，使用 SSH 密钥验证不失为一个安全又便利的可选项。
+虽然我是过了八月之后 Push 发现不得了才使用 SSH KEY 的😂。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -3,7 +3,7 @@ title: "使用 SSH 密钥以对 GitHub 进行认证"
 date: 2021-11-01T21:58:25+08:00
 tags: [ "Github", "SSH" ]
 excerpt: "无论是出于 GitHub 的强制要求的应对，还是出于便利的考虑，使用 SSH 密钥验证不失为一个安全又便利的可选项。虽然我是过了八月之后 Push 发现不得了才使用 SSH KEY 的😂。本文使用 OpenSSH 配套工具以及 PuTTY 配套工具生成 SSH 密钥的同时给 GitHub 开启了认证！😀"
-draft: true
+draft: false
 ---
 
 ### 前言

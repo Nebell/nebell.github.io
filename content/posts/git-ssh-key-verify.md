@@ -1,11 +1,12 @@
 ---
-title: "[GitHub] 生成 SSH 密钥以进行 GitHub 认证"
+title: "使用 SSH 密钥以对 GitHub 进行认证"
 date: 2021-11-01T21:58:25+08:00
-
+tags: [ "Github", "SSH" ]
+excerpt: "无论是出于 GitHub 的强制要求的应对，还是出于便利的考虑，使用 SSH 密钥验证不失为一个安全又便利的可选项。虽然我是过了八月之后 Push 发现不得了才使用 SSH KEY 的😂。本文使用 OpenSSH 配套工具以及 PuTTY 配套工具生成 SSH 密钥的同时给 GitHub 开启了认证！😀"
 draft: true
 ---
 
-## 前言
+### 前言
 
 > For developers, if you are using a password to authenticate Git operations with GitHub.com today, you must begin using [a personal access token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) over HTTPS (recommended) or SSH key by August 13, 2021, to avoid  disruption. If you receive a warning that you are using an outdated  third-party integration, you should update your client to the latest  version.
 
@@ -13,9 +14,9 @@ draft: true
 
 虽然我是过了八月之后 Push 发现不得了才使用 SSH KEY 的😂。
 
-## SSH KEY 生成
+### SSH KEY 生成
 
-### 使用 OpenSSH 配套工具
+#### 使用 OpenSSH 配套工具
 
 一般是在 Linux 下使用 `ssh-keygen` 生成密钥。
 
@@ -65,7 +66,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDz+uBFXJ+r/dZ+APS0iQ7/GpWpgrrZhNPw/8YMRBTw
 
 那么将公钥复制，进行下一步。
 
-### 使用 PuTTY Key Generator
+#### 使用 PuTTY Key Generator
 
 一般在 Windows 下使用这个 PuTTY 的配套工具生成密钥。
 
@@ -95,9 +96,9 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDz+uBFXJ+r/dZ+APS0iQ7/GpWpgrrZhNPw/8YMRBTw
 
 ![image-20211102103448558](/img/git-ssh-key-verify/image-20211102103448558.png)
 
-## GitHub 使用密钥进行认证
+### GitHub 使用密钥进行认证
 
-### 设置 GitHub 的密钥认证
+#### 设置 GitHub 的密钥认证
 
 进入 GitHub 官网，从右上角的头像中进入设置⚙页面。
 
@@ -115,13 +116,13 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDz+uBFXJ+r/dZ+APS0iQ7/GpWpgrrZhNPw/8YMRBTw
 
 ![image-20211102111316504](/img/git-ssh-key-verify/image-20211102111316504.png)
 
-### 本机设置 SSH 指定密钥认证
+#### 本机设置 SSH 指定密钥认证
 
 好的，终于开始了令人激动的认证👀环节！
 
 以下假设对应粘贴到 Github 的公钥的私钥文件为 `id_rsa`。
 
-### 验证
+#### 验证
 
 一般而言，通过 OpenSSH 配套工具 `ssh-keygen` 生成的都可以直接使用了。
 
@@ -134,7 +135,7 @@ Hi (你的用户名)! You've successfully authenticated, but GitHub does not pro
 
 这个时候进行私有仓库的 Push / Clone / Pull 操作试试。
 
-### 添加私钥
+#### 添加私钥
 
 如果是 PuTTY Key Generator 生成的私钥🔑，需要加入到 OpenSSH 中。
 
@@ -167,7 +168,7 @@ PS C:\windows\system32> Get-Service ssh-agent
 
 那么重试验证那一步，可以的话那就 OK 了。
 
-### 指定私钥认证
+#### 指定私钥认证
 
 但是我又遇到了一个问题，出现在了我更换了私钥之后，甚至是使用 `ssh-add` 添加了私钥之后。
 
@@ -205,7 +206,7 @@ Host github.com
 
 好了👌，再次进行第一步测试，不出意外就 OK 了。
 
-## 其他
+### 其他
 
 对于 Gitee / GitLab 的密钥设置是大同小异的，而使用 SSH 密钥进行 SSH 连接可以先参考[这里](https://linux.cn/article-13726-1.html)，毕竟笔者不一定写😁。
 

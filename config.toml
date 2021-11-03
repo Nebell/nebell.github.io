@@ -19,7 +19,7 @@ theme = "casper"
 [params]
     description = "人生如逆旅，我亦是行人。"
     logo = "https://avatars.githubusercontent.com/nebell"
-    cover = "cover.jpg"
+    cover = "https://i.loli.net/2021/11/03/bv3TZKilkE8HuNz.jpg"
     author = "Nebell"
     hideHUGOSupport = true
     share = false

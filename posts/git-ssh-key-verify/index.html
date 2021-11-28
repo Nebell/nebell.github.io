@@ -65,7 +65,7 @@
       
       
     
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
 
     <link rel="canonical" href="https://nebell.github.io/posts/git-ssh-key-verify/" />
 
@@ -106,7 +106,7 @@
     },
     "headline": "使用 SSH 密钥以对 GitHub 进行认证",
     "name": "使用 SSH 密钥以对 GitHub 进行认证",
-    "wordCount":  478 ,
+    "wordCount":  512 ,
     "timeRequired": "PT3M",
     "inLanguage": {
       "@type": "Language",
@@ -333,6 +333,17 @@ and the repository exists.
 <li>User =&gt; git 或者你的用户名经测试都可行</li>
 <li>IdentityFile =&gt; 上文生成的 OpenSSH 的密钥地址</li>
 </ul>
+<h4 id="更改默认认证方式为-ssh">更改默认认证方式为 SSH</h4>
+<p>修改 Git 仓库，将原来以 HTTPS 认证的方式修改为 SSH 认证，这样才能用上宝贵的密钥！</p>
+<p>首先进入到 Git 仓库中，在当前目录下找到这个文件：<code>./.git/config</code>，不出意外的话有一部分是这个模样的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">[remote &#34;origin&#34;]
+fetch = + refs/heads/*:refs/remotes/origin/*
+url = https://username@github.com/username/projectname.git
+</code></pre></div><p>注意 URL 部分，现在将其修改成以下格式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[remote &#34;origin&#34;]
+fetch = + refs/heads/*:refs/remotes/origin/*
+url = git@github.com:username/projectname.git
+</code></pre></div><p>那就大功告成啦！</p>
 <p>好了👌，再次进行第一步测试，不出意外就 OK 了。</p>
 <h3 id="其他">其他</h3>
 <p>对于 Gitee / GitLab 的密钥设置是大同小异的，而使用 SSH 密钥进行 SSH 连接可以先参考<a href="https://linux.cn/article-13726-1.html">这里</a>，毕竟笔者不一定写😁。</p>

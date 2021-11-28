@@ -204,6 +204,28 @@ Host github.com
 + User => git 或者你的用户名经测试都可行
 + IdentityFile => 上文生成的 OpenSSH 的密钥地址
 
+#### 更改默认认证方式为 SSH
+
+修改 Git 仓库，将原来以 HTTPS 认证的方式修改为 SSH 认证，这样才能用上宝贵的密钥！
+
+首先进入到 Git 仓库中，在当前目录下找到这个文件：`./.git/config`，不出意外的话有一部分是这个模样的：
+
+```plain
+[remote "origin"]
+fetch = + refs/heads/*:refs/remotes/origin/*
+url = https://username@github.com/username/projectname.git
+```
+
+注意 URL 部分，现在将其修改成以下格式：
+
+```text
+[remote "origin"]
+fetch = + refs/heads/*:refs/remotes/origin/*
+url = git@github.com:username/projectname.git
+```
+
+那就大功告成啦！
+
 好了👌，再次进行第一步测试，不出意外就 OK 了。
 
 ### 其他
